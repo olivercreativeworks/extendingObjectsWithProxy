@@ -42,9 +42,11 @@ class ExtendedArray{
        * @param {string} prop
        */
       get(target, prop, receiver){
+        // check to see if the property exists on extended array class
         if(Reflect.has(target, prop)){
           return Reflect.get(target, prop, receiver)
         }
+        // otherwise see if the property exists on the array property
         if(Reflect.has(target.arr, prop)){
           const value = Reflect.get(target.arr, prop, target.arr)
           if(typeof value !== "function") return value
@@ -53,6 +55,8 @@ class ExtendedArray{
             return Array.isArray(result) ? new ExtendedArray(result) : result
           }
         }
+        // at this point we know the prop is not on the target, so this will return undefined.
+        // but you can implement custom error handling, if you'd like. 
         return Reflect.get(target, prop, receiver)
       }
     }
@@ -78,4 +82,5 @@ function myFunctionDemo() {
   console.log(extendedArr[0])
   console.log(extendedArr.length)
   console.log(extendedArr.concat(100, 200, 300, -1).sortClip().getValue())
+  extendedArr.cats() // TypeError because cats will be undefined and undefined is not a function
 }

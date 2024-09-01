@@ -63,12 +63,12 @@ class ExtendedArray{
   }
 
   /**
-   * Sorts the array from greatest to least and returns the first X values.
-   * @param {number} len
+   * Sorts the array from least to greatest and returns the first ```num``` values.
+   * @param {number} num The max number of values to return.
    * @return {ExtendedArray_<A>}
    */
-  sortClip(len){
-    const arr = this.arr.toSorted((a, b) => a - b).slice(0,len)
+  sortClip(num){
+    const arr = this.arr.toSorted((a, b) => a - b).slice(0,num)
     return ExtendedArray.create(arr)
   }
 
